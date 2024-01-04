@@ -1,33 +1,5 @@
 return {
   {
-    "echasnovski/mini.map",
-    opts = {},
-    keys = {
-      --stylua: ignore
-      { "<leader>vm", function() require("mini.map").toggle {} end, desc = "Toggle Minimap", },
-    },
-    config = function(_, opts)
-      require("mini.map").setup(opts)
-    end,
-  },
-  -- {
-  --   "echasnovski/mini.jump",
-  --   opts = {},
-  --   keys = { "f", "F", "t", "T" },
-  --   config = function(_, opts)
-  --     require("mini.jump").setup(opts)
-  --   end,
-  -- },
-  -- {
-  --   "echasnovski/mini.move",
-  --   enabled = false,
-  --   opts = {},
-  --   keys = { "<<M-h>", "<M-l>", "<M-j>", "<M-k>" },
-  --   config = function(_, opts)
-  --     require("mini.move").setup(opts)
-  --   end,
-  -- },
-  {
     "echasnovski/mini.ai",
     event = "VeryLazy",
     opts = function()
@@ -108,25 +80,6 @@ return {
       require("mini.animate").setup()
     end,
   },
-  -- {
-  --   "echasnovski/mini.comment",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     hooks = {
-  --       pre = function()
-  --         require("ts_context_commentstring.internal").update_commentstring {}
-  --       end,
-  --     },
-  --   },
-  --   config = function(_, opts)
-  --     require("mini.comment").setup(opts)
-  --   end,
-  -- },
-  -- {
-  --   "echasnovski/mini.pairs",
-  --   event = "VeryLazy",
-  --   opts = {},
-  -- },
   {
     "echasnovski/mini.indentscope",
     version = false,
@@ -171,63 +124,63 @@ return {
       require("mini.bracketed").setup()
     end,
   },
-  {
-    "echasnovski/mini.files",
-    opts = {
-      windows = {
-        preview = true,
-        width_nofocus = 30,
-        width_preview = 60,
-      },
-      options = {
-        use_as_default_explorer = true,
-      },
-    },
-    keys = {
-      {
-        "<leader>fE",
-        function()
-          require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-        end,
-        desc = "Explorer (Current File)",
-      },
-      {
-        "<leader>fe",
-        function()
-          require("mini.files").open(vim.loop.cwd(), true)
-        end,
-        desc = "Explorer (Current Directory)",
-      },
-    },
-    config = function(_, opts)
-      require("mini.files").setup(opts)
-    end,
-    init = function()
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesBufferCreate",
-        callback = function(args)
-          local buf_id = args.data.buf_id
-          local mini_utils = require "plugins.mini.utils"
-          local map_split = mini_utils.map_split
-          local keymap = vim.keymap
+  -- {
+  --   "echasnovski/mini.files",
+  --   opts = {
+  --     windows = {
+  --       preview = true,
+  --       width_nofocus = 30,
+  --       width_preview = 60,
+  --     },
+  --     options = {
+  --       use_as_default_explorer = true,
+  --     },
+  --   },
+  --   keys = {
+  --     {
+  --       "<leader>fE",
+  --       function()
+  --         require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+  --       end,
+  --       desc = "Explorer (Current File)",
+  --     },
+  --     {
+  --       "<leader>fe",
+  --       function()
+  --         require("mini.files").open(vim.loop.cwd(), true)
+  --       end,
+  --       desc = "Explorer (Current Directory)",
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("mini.files").setup(opts)
+  --   end,
+  --   init = function()
+  --     vim.api.nvim_create_autocmd("User", {
+  --       pattern = "MiniFilesBufferCreate",
+  --       callback = function(args)
+  --         local buf_id = args.data.buf_id
+  --         local mini_utils = require "plugins.mini.utils"
+  --         local map_split = mini_utils.map_split
+  --         local keymap = vim.keymap
 
-          -- Split view
-          map_split(buf_id, "gs", "belowright horizontal")
-          map_split(buf_id, "gv", "belowright vertical")
+  --         -- Split view
+  --         map_split(buf_id, "gs", "belowright horizontal")
+  --         map_split(buf_id, "gv", "belowright vertical")
 
-          -- File actions
-          keymap.set("n", "g.", mini_utils.toggle_dotfiles, { buffer = buf_id, desc = "Hidden Files" })
-          keymap.set("n", "s", mini_utils.jump, { buffer = buf_id, desc = "Jump" })
-          keymap.set("n", "M", function()
-            mini_utils.file_actions(buf_id)
-          end, { buffer = buf_id, desc = "File Actions" })
-          keymap.set("n", "m", function()
-            mini_utils.folder_actions(buf_id)
-          end, { buffer = buf_id, desc = "Folder Actions" })
-        end,
-      })
-    end,
-  },
+  --         -- File actions
+  --         keymap.set("n", "g.", mini_utils.toggle_dotfiles, { buffer = buf_id, desc = "Hidden Files" })
+  --         keymap.set("n", "s", mini_utils.jump, { buffer = buf_id, desc = "Jump" })
+  --         keymap.set("n", "M", function()
+  --           mini_utils.file_actions(buf_id)
+  --         end, { buffer = buf_id, desc = "File Actions" })
+  --         keymap.set("n", "m", function()
+  --           mini_utils.folder_actions(buf_id)
+  --         end, { buffer = buf_id, desc = "Folder Actions" })
+  --       end,
+  --     })
+  --   end,
+  -- },
   {
     "echasnovski/mini.hipatterns",
     event = "BufReadPre",
